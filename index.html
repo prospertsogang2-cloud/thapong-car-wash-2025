@@ -1,0 +1,1790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thapong Car Wash & Cafe</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0a4a8d;
+            --secondary: #e6af2e;
+            --accent: #c44949;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #28a745;
+            --warning: #ffc107;
+            --info: #17a2b8;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .app-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Login Page Styles */
+        #login-page {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(rgba(10, 74, 141, 0.8), rgba(10, 74, 141, 0.9));
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 10000;
+        }
+        
+        .login-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 450px;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .login-logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .login-logo span {
+            color: var(--secondary);
+        }
+        
+        .login-subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        .login-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .login-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            background: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .login-btn i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .btn-google {
+            border-color: #db4437;
+            color: #db4437;
+        }
+        
+        .btn-google:hover {
+            background: #db4437;
+            color: white;
+        }
+        
+        .btn-facebook {
+            border-color: #4267B2;
+            color: #4267B2;
+        }
+        
+        .btn-facebook:hover {
+            background: #4267B2;
+            color: white;
+        }
+        
+        .btn-email {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-email:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .login-divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            color: #777;
+        }
+        
+        .login-divider::before,
+        .login-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #ddd;
+        }
+        
+        .login-divider span {
+            padding: 0 15px;
+        }
+        
+        .login-form {
+            text-align: left;
+            display: none;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--primary);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .btn-login {
+            display: block;
+            width: 100%;
+            background: var(--secondary);
+            color: var(--dark);
+            padding: 14px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .btn-login:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .login-links {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+        }
+        
+        .login-links a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .login-links a:hover {
+            text-decoration: underline;
+        }
+        
+        .login-back {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .login-back a {
+            color: #666;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .login-back a:hover {
+            color: var(--primary);
+        }
+        
+        .login-back i {
+            margin-right: 5px;
+        }
+        
+        /* Main App Styles (initially hidden) */
+        #main-app {
+            display: none;
+        }
+        
+        header {
+            background: linear-gradient(rgba(10, 74, 141, 0.9), rgba(10, 74, 141, 0.8)), var(--header-bg, url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3') center/cover);
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            position: relative;
+            transition: background 0.5s ease;
+        }
+        
+        .logo {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .logo span {
+            color: var(--secondary);
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+        
+        .app-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .card-title {
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--secondary);
+        }
+        
+        .service-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .service-option:hover {
+            border-color: var(--primary);
+            background-color: rgba(10, 74, 141, 0.05);
+        }
+        
+        .service-option.selected {
+            border-color: var(--secondary);
+            background-color: rgba(230, 175, 46, 0.1);
+        }
+        
+        .service-info {
+            flex-grow: 1;
+        }
+        
+        .service-name {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .service-desc {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .service-price {
+            font-weight: bold;
+            color: var(--secondary);
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--secondary);
+            color: var(--dark);
+            padding: 14px 30px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-block {
+            display: block;
+            width: 100%;
+        }
+        
+        .status-container {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background: #e9ecef;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--secondary);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        .status-steps {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin: 30px 0;
+        }
+        
+        .status-step {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .status-icon {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+        }
+        
+        .status-step.active .status-icon {
+            background: var(--secondary);
+            color: white;
+            border-color: var(--secondary);
+        }
+        
+        .status-step.completed .status-icon {
+            background: var(--success);
+            color: white;
+            border-color: var(--success);
+        }
+        
+        .status-steps::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #ddd;
+            z-index: 1;
+        }
+        
+        .cafe-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .cafe-item {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .cafe-item:hover {
+            border-color: var(--primary);
+        }
+        
+        .cafe-item.selected {
+            border-color: var(--secondary);
+            background: rgba(230, 175, 46, 0.1);
+        }
+        
+        .cafe-item img {
+            max-width: 100%;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            background: white;
+            border-left: 4px solid var(--success);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border-radius: 5px;
+            transform: translateX(150%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .timer {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+            color: var(--primary);
+            margin: 20px 0;
+        }
+        
+        /* New Features Styles */
+        .loyalty-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--secondary);
+            color: var(--dark);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .promotion-banner {
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+        
+        .live-updates {
+            margin-top: 30px;
+        }
+        
+        .updates-feed {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .update-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .update-card img,
+        .update-card video {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+        
+        .update-content {
+            padding: 15px;
+        }
+        
+        .before-after-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .before-after-label {
+            text-align: center;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .reaction-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        
+        .reactions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .reaction-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .reaction-btn:hover {
+            transform: scale(1.2);
+        }
+        
+        .comments-section {
+            margin-top: 15px;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+        
+        .comment {
+            padding: 8px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            margin-bottom: 8px;
+        }
+        
+        .comment-form {
+            display: flex;
+            margin-top: 10px;
+        }
+        
+        .comment-input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 20px 0 0 20px;
+        }
+        
+        .comment-submit {
+            padding: 8px 15px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 0 20px 20px 0;
+            cursor: pointer;
+        }
+        
+        .rating-section {
+            margin-top: 15px;
+            text-align: center;
+        }
+        
+        .stars {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin-top: 5px;
+        }
+        
+        .star {
+            font-size: 1.5rem;
+            color: #ddd;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        
+        .star.active {
+            color: var(--secondary);
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .action-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .btn-wait {
+            background: var(--info);
+            color: white;
+        }
+        
+        .btn-leave {
+            background: var(--success);
+            color: white;
+        }
+        
+        .loyalty-section {
+            background: linear-gradient(to right, #f8f9fa, #e9ecef);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+        
+        .loyalty-stamps {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .stamp {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .stamp.earned {
+            background: var(--secondary);
+            color: var(--dark);
+        }
+        
+        @media (max-width: 768px) {
+            .app-content {
+                grid-template-columns: 1fr;
+            }
+            
+            header {
+                padding: 40px 20px;
+            }
+            
+            .logo {
+                font-size: 2.2rem;
+            }
+            
+            .loyalty-badge {
+                position: relative;
+                top: 0;
+                right: 0;
+                margin: 10px auto;
+                width: fit-content;
+            }
+            
+            .before-after-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .login-container {
+                padding: 30px 20px;
+                margin: 20px;
+            }
+        }
+        
+        /* Logout button */
+        .logout-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: background 0.3s;
+        }
+        
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="login-page">
+        <div class="login-container">
+            <div class="login-logo">THAPONG <span>CAR WASH</span></div>
+            <p class="login-subtitle">Sign in to book your wash-and-dine experience</p>
+            
+            <div class="login-options">
+                <button class="login-btn btn-google" onclick="loginWithGoogle()">
+                    <i class="fab fa-google"></i> Continue with Google
+                </button>
+                
+                <button class="login-btn btn-facebook" onclick="loginWithFacebook()">
+                    <i class="fab fa-facebook-f"></i> Continue with Facebook
+                </button>
+                
+                <button class="login-btn btn-email" onclick="showEmailLogin()">
+                    <i class="fas fa-envelope"></i> Login with Email/Password
+                </button>
+            </div>
+            
+            <div class="login-divider">
+                <span>Or</span>
+            </div>
+            
+            <div class="login-form" id="email-login-form">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" class="form-control" placeholder="your@email.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" class="form-control" placeholder="Your password">
+                </div>
+                
+                <button class="btn-login" onclick="loginWithEmail()">Login</button>
+                
+                <div class="login-links">
+                    <a href="#" onclick="showRegisterForm()">Create Account</a>
+                    <a href="#">Forgot Password?</a>
+                </div>
+                
+                <div class="login-back">
+                    <a href="#" onclick="hideEmailLogin()"><i class="fas fa-arrow-left"></i> Back to login options</a>
+                </div>
+            </div>
+            
+            <div class="login-form" id="register-form">
+                <div class="form-group">
+                    <label for="reg-name">Full Name</label>
+                    <input type="text" id="reg-name" class="form-control" placeholder="Your name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="reg-email">Email Address</label>
+                    <input type="email" id="reg-email" class="form-control" placeholder="your@email.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="reg-password">Password</label>
+                    <input type="password" id="reg-password" class="form-control" placeholder="Create a password">
+                </div>
+                
+                <div class="form-group">
+                    <label for="reg-confirm">Confirm Password</label>
+                    <input type="password" id="reg-confirm" class="form-control" placeholder="Confirm your password">
+                </div>
+                
+                <button class="btn-login" onclick="registerWithEmail()">Create Account</button>
+                
+                <div class="login-back">
+                    <a href="#" onclick="showEmailLogin()"><i class="fas fa-arrow-left"></i> Back to login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main App (initially hidden) -->
+    <div id="main-app" class="app-container">
+        <header>
+            <button class="logout-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+            
+            <div class="logo">THAPONG <span>CAR WASH</span></div>
+            <div class="tagline">WASH-AND-DINE ECOSYSTEM</div>
+            <p>Integrated with Thabong Cafe for your convenience</p>
+            
+            <!-- Loyalty Points Badge -->
+            <div class="loyalty-badge">
+                <i class="fas fa-coins"></i>
+                <span id="loyalty-points">0</span> Points
+            </div>
+        </header>
+        
+        <!-- Promotion Banner -->
+        <div class="promotion-banner" id="promotion-banner">
+            <h3><i class="fas fa-gift"></i> Wash & Wine Wednesday!</h3>
+            <p>Get a free glass of wine with any premium wash today</p>
+        </div>
+        
+        <div class="app-content">
+            <div class="left-panel">
+                <div class="card">
+                    <h2 class="card-title">1. Select Car Wash Service</h2>
+                    
+                    <div class="service-option" onclick="selectService(this, 'signature')">
+                        <div class="service-info">
+                            <div class="service-name">Signature Wash (Premium)</div>
+                            <div class="service-desc">Deep clean, vacuuming, dashboard wipe, windows, exterior wash, tire shine (30-40 min)</div>
+                        </div>
+                        <div class="service-price">P 80 - 100</div>
+                    </div>
+                    
+                    <div class="service-option" onclick="selectService(this, 'comfort')">
+                        <div class="service-info">
+                            <div class="service-name">Comfort Clean (Standard)</div>
+                            <div class="service-desc">Vacuum, dashboard, seats, mats, windows (20-25 min)</div>
+                        </div>
+                        <div class="service-price">P 50 - 60</div>
+                    </div>
+                    
+                    <div class="service-option" onclick="selectService(this, 'quick')">
+                        <div class="service-info">
+                            <div class="service-name">Quick Glow Wash (Basic)</div>
+                            <div class="service-desc">Exterior wash, rinse, dry, tire shine (15-20 min)</div>
+                        </div>
+                        <div class="service-price">P 40 - 50</div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h2 class="card-title">2. Pre-order from Thabong Cafe</h2>
+                    <p>Your order will be ready when your car wash is complete</p>
+                    
+                    <div class="cafe-items">
+                        <div class="cafe-item" onclick="selectCafeItem(this, 'cappuccino')">
+                            <img src="https://images.unsplash.com/photo-1534778101976-62847782c213?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Cappuccino">
+                            <div>Cappuccino</div>
+                            <div class="service-price">P 25</div>
+                        </div>
+                        
+                        <div class="cafe-item" onclick="selectCafeItem(this, 'croissant')">
+                            <img src="https://images.unsplash.com/photo-1555507036-ab794f24d6c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Croissant">
+                            <div>Croissant</div>
+                            <div class="service-price">P 35</div>
+                        </div>
+                        
+                        <div class="cafe-item" onclick="selectCafeItem(this, 'sandwich')">
+                            <img src="https://images.unsplash.com/photo-1567234669003-dce7a7a88821?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Sandwich">
+                            <div>Sandwich</div>
+                            <div class="service-price">P 65</div>
+                        </div>
+                        
+                        <div class="cafe-item" onclick="selectCafeItem(this, 'smoothie')">
+                            <img src="https://images.unsplash.com/photo-1511924777677-5347db9c0c15?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Smoothie">
+                            <div>Fruit Smoothie</div>
+                            <div class="service-price">P 45</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Loyalty Program Section -->
+                <div class="loyalty-section">
+                    <h2 class="card-title">Loyalty Rewards</h2>
+                    <p>Earn stamps with every wash and redeem rewards!</p>
+                    
+                    <div class="loyalty-stamps">
+                        <div class="stamp earned">1</div>
+                        <div class="stamp earned">2</div>
+                        <div class="stamp earned">3</div>
+                        <div class="stamp">4</div>
+                        <div class="stamp">5</div>
+                    </div>
+                    
+                    <p>After 5 washes, get a free Quick Glow Wash!</p>
+                </div>
+            </div>
+            
+            <div class="right-panel">
+                <div class="card">
+                    <h2 class="card-title">3. Customer Information</h2>
+                    
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" class="form-control" placeholder="Your name">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" class="form-control" placeholder="Your phone number">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="vehicle-model">Vehicle Model</label>
+                        <input type="text" id="vehicle-model" class="form-control" placeholder="e.g., Toyota Corolla">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="vehicle-color">Vehicle Color</label>
+                        <input type="text" id="vehicle-color" class="form-control" placeholder="e.g., Red">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="vehicle-plate">Plate Number</label>
+                        <input type="text" id="vehicle-plate" class="form-control" placeholder="e.g., ABC 123 EC">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="time">Preferred Time</label>
+                        <input type="datetime-local" id="time" class="form-control">
+                    </div>
+                    
+                    <button class="btn btn-block" onclick="bookService()">Book Now & Pre-order</button>
+                </div>
+                
+                <div class="card">
+                    <h2 class="card-title">Service Status</h2>
+                    <div id="status-container">
+                        <p class="text-center">Your service status will appear here once booked</p>
+                    </div>
+                    
+                    <!-- Action Buttons (will be shown when car is ready) -->
+                    <div id="action-buttons" class="action-buttons" style="display: none;">
+                        <button class="action-btn btn-wait" onclick="chooseToWait()">
+                            <i class="fas fa-coffee"></i> Wait at Cafe
+                        </button>
+                        <button class="action-btn btn-leave" onclick="chooseToLeave()">
+                            <i class="fas fa-car"></i> Pick Up Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Live Updates Section -->
+        <div class="live-updates">
+            <h2 class="card-title">Live from Thapong</h2>
+            <div class="updates-feed" id="updates-feed">
+                <!-- Content will be loaded dynamically -->
+            </div>
+        </div>
+        
+        <!-- Rating Section -->
+        <div class="card">
+            <h2 class="card-title">Rate Our Service</h2>
+            <div class="rating-section">
+                <p>How would you rate your experience?</p>
+                <div class="stars">
+                    <span class="star" onclick="rateService(1)">★</span>
+                    <span class="star" onclick="rateService(2)">★</span>
+                    <span class="star" onclick="rateService(3)">★</span>
+                    <span class="star" onclick="rateService(4)">★</span>
+                    <span class="star" onclick="rateService(5)">★</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="notification" id="notification">
+            <i class="fas fa-check-circle"></i> <span id="notification-text">Your booking has been confirmed!</span>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const loginPage = document.getElementById('login-page');
+        const mainApp = document.getElementById('main-app');
+        const emailLoginForm = document.getElementById('email-login-form');
+        const registerForm = document.getElementById('register-form');
+        const statusContainer = document.getElementById('status-container');
+        const notification = document.getElementById('notification');
+        const notificationText = document.getElementById('notification-text');
+        const actionButtons = document.getElementById('action-buttons');
+        const loyaltyPointsEl = document.getElementById('loyalty-points');
+        const promotionBanner = document.getElementById('promotion-banner');
+        const updatesFeed = document.getElementById('updates-feed');
+        
+        // Current booking state
+        let bookingState = {
+            service: null,
+            cafeItems: [],
+            customerInfo: {},
+            status: 'not_started',
+            progress: 0,
+            timeRemaining: 0,
+            totalTime: 0,
+            loyaltyPoints: 0,
+            stamps: 3,
+            user: null
+        };
+        
+        // Check if user is already logged in
+        function checkAuthStatus() {
+            const user = localStorage.getItem('thapongUser');
+            if (user) {
+                bookingState.user = JSON.parse(user);
+                showMainApp();
+            }
+        }
+        
+        // Show main app, hide login
+        function showMainApp() {
+            loginPage.style.display = 'none';
+            mainApp.style.display = 'block';
+            initApp();
+        }
+        
+        // Show login, hide main app
+        function showLogin() {
+            loginPage.style.display = 'flex';
+            mainApp.style.display = 'none';
+        }
+        
+        // Show email login form
+        function showEmailLogin() {
+            document.querySelectorAll('.login-form').forEach(form => {
+                form.style.display = 'none';
+            });
+            emailLoginForm.style.display = 'block';
+        }
+        
+        // Show registration form
+        function showRegisterForm() {
+            document.querySelectorAll('.login-form').forEach(form => {
+                form.style.display = 'none';
+            });
+            registerForm.style.display = 'block';
+        }
+        
+        // Hide email login, show social options
+        function hideEmailLogin() {
+            document.querySelectorAll('.login-form').forEach(form => {
+                form.style.display = 'none';
+            });
+        }
+        
+        // Login with Google (simulated)
+        function loginWithGoogle() {
+            // In a real app, this would use Google OAuth
+            const user = {
+                name: 'Google User',
+                email: 'user@gmail.com',
+                provider: 'google'
+            };
+            
+            // Store user data
+            localStorage.setItem('thapongUser', JSON.stringify(user));
+            bookingState.user = user;
+            
+            // Show main app
+            showMainApp();
+            
+            // Show notification
+            showNotification('Logged in with Google successfully!');
+        }
+        
+        // Login with Facebook (simulated)
+        function loginWithFacebook() {
+            // In a real app, this would use Facebook OAuth
+            const user = {
+                name: 'Facebook User',
+                email: 'user@facebook.com',
+                provider: 'facebook'
+            };
+            
+            // Store user data
+            localStorage.setItem('thapongUser', JSON.stringify(user));
+            bookingState.user = user;
+            
+            // Show main app
+            showMainApp();
+            
+            // Show notification
+            showNotification('Logged in with Facebook successfully!');
+        }
+        
+        // Login with email (simulated)
+        function loginWithEmail() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            if (!email || !password) {
+                showNotification('Please enter both email and password');
+                return;
+            }
+            
+            // In a real app, this would validate against a backend
+            const user = {
+                name: email.split('@')[0],
+                email: email,
+                provider: 'email'
+            };
+            
+            // Store user data
+            localStorage.setItem('thapongUser', JSON.stringify(user));
+            bookingState.user = user;
+            
+            // Show main app
+            showMainApp();
+            
+            // Show notification
+            showNotification('Logged in successfully!');
+        }
+        
+        // Register with email (simulated)
+        function registerWithEmail() {
+            const name = document.getElementById('reg-name').value;
+            const email = document.getElementById('reg-email').value;
+            const password = document.getElementById('reg-password').value;
+            const confirm = document.getElementById('reg-confirm').value;
+            
+            if (!name || !email || !password || !confirm) {
+                showNotification('Please fill all fields');
+                return;
+            }
+            
+            if (password !== confirm) {
+                showNotification('Passwords do not match');
+                return;
+            }
+            
+            // In a real app, this would create an account in a backend
+            const user = {
+                name: name,
+                email: email,
+                provider: 'email'
+            };
+            
+            // Store user data
+            localStorage.setItem('thapongUser', JSON.stringify(user));
+            bookingState.user = user;
+            
+            // Show main app
+            showMainApp();
+            
+            // Show notification
+            showNotification('Account created and logged in successfully!');
+        }
+        
+        // Logout function
+        function logout() {
+            // Clear user data
+            localStorage.removeItem('thapongUser');
+            bookingState.user = null;
+            
+            // Show login page
+            showLogin();
+            
+            // Reset forms
+            hideEmailLogin();
+            document.getElementById('email').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('reg-name').value = '';
+            document.getElementById('reg-email').value = '';
+            document.getElementById('reg-password').value = '';
+            document.getElementById('reg-confirm').value = '';
+        }
+        
+        // Initialize the app
+        function initApp() {
+            // Set default datetime to current time + 30 minutes
+            const now = new Date();
+            now.setMinutes(now.getMinutes() + 30);
+            document.getElementById('time').value = now.toISOString().slice(0, 16);
+            
+            // Initialize loyalty system
+            initLoyalty();
+            
+            // Load media updates
+            loadMediaUpdates();
+            
+            // Rotate promotions
+            const promotions = [
+                {
+                    title: "Wash & Wine Wednesday!",
+                    text: "Get a free glass of wine with any premium wash today",
+                    color: "linear-gradient(to right, #0a4a8d, #c44949)"
+                },
+                {
+                    title: "GBV Awareness Month",
+                    text: "10% of proceeds this week donated to GBV shelters",
+                    color: "linear-gradient(to right, #c44949, #e6af2e)"
+                },
+                {
+                    title: "Car Show Next Saturday!",
+                    text: "Register your vehicle for our monthly car show",
+                    color: "linear-gradient(to right, #0a4a8d, #17a2b8)"
+                }
+            ];
+            
+            let currentPromotion = 0;
+            
+            // Change promotion every 10 seconds
+            setInterval(() => {
+                promotionBanner.innerHTML = `
+                    <h3><i class="fas fa-gift"></i> ${promotions[currentPromotion].title}</h3>
+                    <p>${promotions[currentPromotion].text}</p>
+                `;
+                promotionBanner.style.background = promotions[currentPromotion].color;
+                
+                currentPromotion = (currentPromotion + 1) % promotions.length;
+            }, 10000);
+            
+            // Check for status updates every 5 seconds
+            setInterval(checkForUpdates, 5000);
+        }
+        
+        // Load media updates from localStorage
+        function loadMediaUpdates() {
+            const mediaUpdates = JSON.parse(localStorage.getItem('thapongMediaUpdates')) || [];
+            updatesFeed.innerHTML = '';
+            
+            if (mediaUpdates.length === 0) {
+                updatesFeed.innerHTML = `
+                    <div class="update-card">
+                        <div class="update-content">
+                            <h3>No updates yet</h3>
+                            <p>Check back later for before/after photos and videos!</p>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+            
+            mediaUpdates.forEach(update => {
+                const updateElement = document.createElement('div');
+                updateElement.className = 'update-card';
+                
+                let mediaContent = '';
+                if (update.type === 'before-after') {
+                    mediaContent = `
+                        <div class="before-after-container">
+                            <div>
+                                <div class="before-after-label">Before</div>
+                                ${update.before.type === 'image' ? 
+                                    `<img src="${update.before.url}" alt="Before">` : 
+                                    `<video controls><source src="${update.before.url}"></video>`
+                                }
+                            </div>
+                            <div>
+                                <div class="before-after-label">After</div>
+                                ${update.after.type === 'image' ? 
+                                    `<img src="${update.after.url}" alt="After">` : 
+                                    `<video controls><source src="${update.after.url}"></video>`
+                                }
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    mediaContent = update.type === 'image' ? 
+                        `<img src="${update.url}" alt="Update">` : 
+                        `<video controls><source src="${update.url}"></video>`;
+                }
+                
+                updateElement.innerHTML = `
+                    ${mediaContent}
+                    <div class="update-content">
+                        <h3>${update.title}</h3>
+                        <p>${update.description}</p>
+                        <div class="reaction-section">
+                            <div class="reactions">
+                                <button class="reaction-btn" onclick="reactToPost(${update.id}, 'like')">👍 <span>${update.reactions?.like || 0}</span></button>
+                                <button class="reaction-btn" onclick="reactToPost(${update.id}, 'love')">❤️ <span>${update.reactions?.love || 0}</span></button>
+                                <button class="reaction-btn" onclick="reactToPost(${update.id}, 'wow')">😮 <span>${update.reactions?.wow || 0}</span></button>
+                            </div>
+                        </div>
+                        <div class="comments-section">
+                            ${update.comments ? update.comments.map(comment => `
+                                <div class="comment">
+                                    <strong>${comment.user}:</strong> ${comment.text}
+                                </div>
+                            `).join('') : ''}
+                        </div>
+                        <div class="comment-form">
+                            <input type="text" class="comment-input" placeholder="Add a comment..." id="comment-${update.id}">
+                            <button class="comment-submit" onclick="addComment(${update.id})">Post</button>
+                        </div>
+                    </div>
+                `;
+                
+                updatesFeed.appendChild(updateElement);
+            });
+        }
+        
+        // React to a post
+        function reactToPost(postId, reaction) {
+            const mediaUpdates = JSON.parse(localStorage.getItem('thapongMediaUpdates')) || [];
+            const postIndex = mediaUpdates.findIndex(post => post.id === postId);
+            
+            if (postIndex !== -1) {
+                if (!mediaUpdates[postIndex].reactions) {
+                    mediaUpdates[postIndex].reactions = {};
+                }
+                
+                if (!mediaUpdates[postIndex].reactions[reaction]) {
+                    mediaUpdates[postIndex].reactions[reaction] = 0;
+                }
+                
+                mediaUpdates[postIndex].reactions[reaction]++;
+                localStorage.setItem('thapongMediaUpdates', JSON.stringify(mediaUpdates));
+                loadMediaUpdates();
+            }
+        }
+        
+        // Add comment to a post
+        function addComment(postId) {
+            const commentInput = document.getElementById(`comment-${postId}`);
+            const commentText = commentInput.value.trim();
+            
+            if (commentText) {
+                const mediaUpdates = JSON.parse(localStorage.getItem('thapongMediaUpdates')) || [];
+                const postIndex = mediaUpdates.findIndex(post => post.id === postId);
+                
+                if (postIndex !== -1) {
+                    if (!mediaUpdates[postIndex].comments) {
+                        mediaUpdates[postIndex].comments = [];
+                    }
+                    
+                    mediaUpdates[postIndex].comments.push({
+                        user: 'Customer',
+                        text: commentText,
+                        timestamp: new Date().toISOString()
+                    });
+                    
+                    localStorage.setItem('thapongMediaUpdates', JSON.stringify(mediaUpdates));
+                    commentInput.value = '';
+                    loadMediaUpdates();
+                }
+            }
+        }
+        
+        // Rate the service
+        function rateService(rating) {
+            const stars = document.querySelectorAll('.star');
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            });
+            
+            // Save rating
+            const ratings = JSON.parse(localStorage.getItem('thapongRatings')) || [];
+            ratings.push({
+                rating: rating,
+                timestamp: new Date().toISOString()
+            });
+            localStorage.setItem('thapongRatings', JSON.stringify(ratings));
+            
+            showNotification(`Thank you for your ${rating}-star rating!`);
+        }
+        
+        // Initialize loyalty points
+        function initLoyalty() {
+            const savedPoints = localStorage.getItem('thapongLoyaltyPoints');
+            const savedStamps = localStorage.getItem('thapongLoyaltyStamps');
+            
+            if (savedPoints) {
+                bookingState.loyaltyPoints = parseInt(savedPoints);
+                loyaltyPointsEl.textContent = bookingState.loyaltyPoints;
+            }
+            
+            if (savedStamps) {
+                bookingState.stamps = parseInt(savedStamps);
+                updateStampsDisplay();
+            }
+        }
+        
+        // Update stamps display
+        function updateStampsDisplay() {
+            const stamps = document.querySelectorAll('.stamp');
+            stamps.forEach((stamp, index) => {
+                if (index < bookingState.stamps) {
+                    stamp.classList.add('earned');
+                } else {
+                    stamp.classList.remove('earned');
+                }
+            });
+        }
+        
+        // Add loyalty points
+        function addLoyaltyPoints(points) {
+            bookingState.loyaltyPoints += points;
+            localStorage.setItem('thapongLoyaltyPoints', bookingState.loyaltyPoints);
+            loyaltyPointsEl.textContent = bookingState.loyaltyPoints;
+            
+            // Show notification
+            showNotification(`You earned ${points} loyalty points!`);
+        }
+        
+        // Add stamp
+        function addStamp() {
+            if (bookingState.stamps < 5) {
+                bookingState.stamps++;
+                localStorage.setItem('thapongLoyaltyStamps', bookingState.stamps);
+                updateStampsDisplay();
+                
+                if (bookingState.stamps === 5) {
+                    showNotification("You've earned 5 stamps! Free wash on your next visit!");
+                    // Reset stamps
+                    setTimeout(() => {
+                        bookingState.stamps = 0;
+                        localStorage.setItem('thapongLoyaltyStamps', bookingState.stamps);
+                        updateStampsDisplay();
+                    }, 5000);
+                }
+            }
+        }
+        
+        // Select a car wash service
+        function selectService(element, serviceType) {
+            // Remove selected class from all services
+            document.querySelectorAll('.service-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked service
+            element.classList.add('selected');
+            
+            // Update booking state
+            bookingState.service = serviceType;
+            
+            // Set estimated time based on service
+            if (serviceType === 'signature') {
+                bookingState.totalTime = 35 * 60; // 35 minutes in seconds
+            } else if (serviceType === 'comfort') {
+                bookingState.totalTime = 22 * 60; // 22 minutes
+            } else if (serviceType === 'quick') {
+                bookingState.totalTime = 17 * 60; // 17 minutes
+            }
+        }
+        
+        // Select cafe item
+        function selectCafeItem(element, item) {
+            element.classList.toggle('selected');
+            
+            if (element.classList.contains('selected')) {
+                bookingState.cafeItems.push(item);
+            } else {
+                bookingState.cafeItems = bookingState.cafeItems.filter(i => i !== item);
+            }
+        }
+        
+        // Book the service
+        function bookService() {
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const vehicleModel = document.getElementById('vehicle-model').value;
+            const vehicleColor = document.getElementById('vehicle-color').value;
+            const vehiclePlate = document.getElementById('vehicle-plate').value;
+            const time = document.getElementById('time').value;
+            
+            if (!bookingState.service) {
+                showNotification('Please select a car wash service');
+                return;
+            }
+            
+            if (!name || !phone || !vehicleModel || !vehicleColor || !vehiclePlate) {
+                showNotification('Please fill in all customer information');
+                return;
+            }
+            
+            // Create booking object
+            const booking = {
+                id: 'TW' + Date.now(),
+                customer: name,
+                phone: phone,
+                email: bookingState.user?.email || '',
+                service: getServiceName(bookingState.service),
+                vehicle: `${vehicleModel} (${vehicleColor}, ${vehiclePlate})`,
+                datetime: time,
+                status: 'pending',
+                cafeOrder: bookingState.cafeItems.map(item => getItemName(item)).join(', '),
+                requests: '',
+                amount: 'P ' + calculateTotal()
+            };
+            
+            // Save to localStorage
+            saveBooking(booking);
+            
+            // Show booking confirmation
+            showNotification('Your wash and dine experience has been booked! Our team will confirm shortly.');
+            
+            // Update UI to show status
+            renderStatus();
+            
+            // Add loyalty points for booking
+            addLoyaltyPoints(10);
+            addStamp();
+            
+            // Reset the form
+            resetForm();
+            
+            // Start checking for status updates
+            startStatusCheck();
+        }
+        
+        // Save booking to localStorage
+        function saveBooking(booking) {
+            // Get existing bookings from local storage or initialize empty array
+            let existingBookings = JSON.parse(localStorage.getItem('thapongBookings')) || [];
+            
+            // Add new booking to the array
+            existingBookings.unshift(booking);
+            
+            // Save back to local storage
+            localStorage.setItem('thapongBookings', JSON.stringify(existingBookings));
+        }
+        
+        // Reset the form after booking
+        function resetForm() {
+            document.getElementById('name').value = '';
+            document.getElementById('phone').value = '';
+            document.getElementById('vehicle-model').value = '';
+            document.getElementById('vehicle-color').value = '';
+            document.getElementById('vehicle-plate').value = '';
+            
+            // Set default datetime to current time + 30 minutes
+            const now = new Date();
+            now.setMinutes(now.getMinutes() + 30);
+            document.getElementById('time').value = now.toISOString().slice(0, 16);
+            
+            // Reset service selection
+            bookingState.service = null;
+            document.querySelectorAll('.service-option.selected').forEach(item => {
+                item.classList.remove('selected');
+            });
+            
+            // Reset cafe items selection
+            bookingState.cafeItems = [];
+            document.querySelectorAll('.cafe-item.selected').forEach(item => {
+                item.classList.remove('selected');
+            });
+        }
+        
+        // Start checking for status updates
+        function startStatusCheck() {
+            // Check every 10 seconds for updates
+            setInterval(() => {
+                const bookings = JSON.parse(localStorage.getItem('thapongBookings')) || [];
+                const latestBooking = bookings[0]; // Get the most recent booking
+                
+                if (latestBooking && latestBooking.status !== bookingState.status) {
+                    bookingState.status = latestBooking.status;
+                    renderStatus();
+                    
+                    // Show notification for status changes
+                    if (latestBooking.status === 'in progress') {
+                        showNotification('Your car wash has started!');
+                    } else if (latestBooking.status === 'completed') {
+                        showNotification('Your car is ready! What would you like to do?');
+                        actionButtons.style.display = 'flex';
+                    }
+                }
+            }, 10000);
+        }
+        
+        // Check for updates from admin
+        function checkForUpdates() {
+            const bookings = JSON.parse(localStorage.getItem('thapongBookings')) || [];
+            const latestBooking = bookings[0];
+            
+            if (latestBooking && latestBooking.status !== bookingState.status) {
+                bookingState.status = latestBooking.status;
+                renderStatus();
+                
+                if (latestBooking.status === 'completed') {
+                    showNotification('Your car is ready! Please choose to wait or have it driven to the exit.');
+                    actionButtons.style.display = 'flex';
+                }
+            }
+            
+            // Check for new media updates
+            loadMediaUpdates();
+        }
+        
+        // Choose to wait at cafe
+        function chooseToWait() {
+            showNotification("Great! Enjoy your time at Thabong Cafe. We'll notify you if anything changes.");
+            actionButtons.style.display = 'none';
+        }
+        
+        // Choose to pick up now
+        function chooseToLeave() {
+            showNotification("Your car is waiting at the exit. Thank you for choosing Thapong!");
+            actionButtons.style.display = 'none';
+            
+            // Add extra loyalty points for quick pickup
+            addLoyaltyPoints(5);
+        }
+        
+        // Render service status
+        function renderStatus() {
+            if (bookingState.status === 'not_started') {
+                statusContainer.innerHTML = '<p class="text-center">Your service status will appear here once booked</p>';
+                return;
+            }
+            
+            let statusHTML = '';
+            
+            if (bookingState.status === 'pending') {
+                statusHTML = `
+                    <div class="text-center">
+                        <i class="fas fa-clock" style="font-size: 3rem; color: var(--warning);"></i>
+                        <h3>Booking Received</h3>
+                        <p>We're confirming your booking. You'll receive an update soon.</p>
+                    </div>
+                `;
+            } else if (bookingState.status === 'confirmed') {
+                statusHTML = `
+                    <div class="text-center">
+                        <i class="fas fa-check-circle" style="font-size: 3rem; color: var(--success);"></i>
+                        <h3>Booking Confirmed!</h3>
+                        <p>Your wash and dine experience is scheduled</p>
+                    </div>
+                `;
+            } else if (bookingState.status === 'in progress') {
+                const minutes = Math.floor(bookingState.timeRemaining / 60);
+                const seconds = bookingState.timeRemaining % 60;
+                
+                statusHTML = `
+                    <h3>Service In Progress</h3>
+                    <div class="timer">${minutes}:${seconds < 10 ? '0' : ''}${seconds}</div>
+                    
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${bookingState.progress}%"></div>
+                    </div>
+                    
+                    <div class="status-steps">
+                        <div class="status-step completed">
+                            <div class="status-icon"><i class="fas fa-check"></i></div>
+                            <div>Booked</div>
+                        </div>
+                        
+                        <div class="status-step active">
+                            <div class="status-icon"><i class="fas fa-spinner"></i></div>
+                            <div>Washing</div>
+                        </div>
+                        
+                        <div class="status-step">
+                            <div class="status-icon"><i class="fas fa-coffee"></i></div>
+                            <div>Cafe Order</div>
+                        </div>
+                        
+                        <div class="status-step">
+                            <div class="status-icon"><i class="fas fa-car"></i></div>
+                            <div>Ready</div>
+                        </div>
+                    </div>
+                    
+                    <div class="cafe-notification">
+                        <i class="fas fa-info-circle"></i>
+                        <p>Your cafe order is being prepared and will be ready when your car is done.</p>
+                    </div>
+                `;
+            } else if (bookingState.status === 'completed') {
+                statusHTML = `
+                    <div class="text-center">
+                        <i class="fas fa-check-circle" style="font-size: 3rem; color: var(--success);"></i>
+                        <h3>Service Complete!</h3>
+                        <p>Your car is ready and your cafe order is waiting for you at Thabong Cafe.</p>
+                        
+                        <div class="completed-details">
+                            <h4>Service Summary</h4>
+                            <p>Car Wash: ${getServiceName(bookingState.service)}</p>
+                            <p>Cafe Order: ${bookingState.cafeItems.map(item => getItemName(item)).join(', ') || 'None'}</p>
+                            <p>Total: P ${calculateTotal()}.00</p>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            statusContainer.innerHTML = statusHTML;
+        }
+        
+        // Helper function to get service name
+        function getServiceName(serviceType) {
+            const services = {
+                'signature': 'Signature Wash (Premium)',
+                'comfort': 'Comfort Clean (Standard)',
+                'quick': 'Quick Glow Wash (Basic)'
+            };
+            
+            return services[serviceType] || 'Unknown Service';
+        }
+        
+        // Helper function to get item name
+        function getItemName(itemType) {
+            const items = {
+                'cappuccino': 'Cappuccino',
+                'croissant': 'Croissant',
+                'sandwich': 'Sandwich',
+                'smoothie': 'Fruit Smoothie'
+            };
+            
+            return items[itemType] || 'Unknown Item';
+        }
+        
+        // Calculate total price
+        function calculateTotal() {
+            let total = 0;
+            
+            // Add service price
+            if (bookingState.service === 'signature') total += 90;
+            else if (bookingState.service === 'comfort') total += 55;
+            else if (bookingState.service === 'quick') total += 45;
+            
+            // Add cafe items
+            bookingState.cafeItems.forEach(item => {
+                if (item === 'cappuccino') total += 25;
+                else if (item === 'croissant') total += 35;
+                else if (item === 'sandwich') total += 65;
+                else if (item === 'smoothie') total += 45;
+            });
+            
+            return total;
+        }
+        
+        // Show notification
+        function showNotification(message) {
+            notificationText.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 5000);
+        }
+        
+        // Check authentication status when page loads
+        window.onload = checkAuthStatus;
+    </script>
+</body>
+</html>
